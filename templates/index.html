@@ -1,0 +1,32 @@
+{% extends 'bootstrap/base.html' %} {% block title %} Chatbot demo {% endblock %}
+{% block scripts %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='style.css')}}" />
+{% endblock %}
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+    <!-- ... -->
+</div>
+{% endblock %} {% block content %}
+<div class="container">
+    <h2>Chatbot demo</h2>
+    <p>Simple chatbot demo, served up with a web app. Uses custom chatbot developed with <a href="http://wit.ai">wit.ai</a></p>
+    <form action="{{url_for('message')}}" method="POST">
+        <label for="message">Ask</label>
+        <input id="message" name="message" type="text" style="width: 100%;" value="What is the weather in Denver?" />
+        <button class="btn btn-primary btn-block" type="submit">Submit</button>
+    </form>
+{% if weather_lookup is defined: %}
+<h3>Response</h3>
+<dl>
+    <dt>Message to bot</dt>
+    <dd>{{weather_lookup.message}}</dd>
+    <dt>What the bot understood</dt>
+    <dd>{{weather_lookup.bot_response}}</dd>
+    <dt>Response from the weather service</dt>
+    <dd>{{weather_lookup.weather}}</dd>
+</dl>
+</div>
+{% endif %}
+<!-- /container -->
+{% endblock %}
